@@ -38,6 +38,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({task, index, onTaskOpen}) => 
 	};
 
 	const highlightedTaskId = useBoardStore((state) => state.highlightedTaskId);
+	const themeMode = useBoardStore((state) => state.themeMode);
 	const isHighlighted = highlightedTaskId === task.id;
 
 	return (
@@ -64,7 +65,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({task, index, onTaskOpen}) => 
 							boxShadow: snapshot.isDragging ? "0 8px 16px rgba(0,0,0,0.12)" : "0 2px 8px rgba(0,0,0,0.06)",
 							position: "relative",
 							overflow: "hidden",
-							backgroundColor: "var(--ion-background-color, #ffffffff)",
+							backgroundColor: themeMode === "light" ? "#ecf2fbff" : "var(--ion-background-color, #1e1e1e)",
 							display: "flex",
 							flexDirection: "column",
 							cursor: "grab",
