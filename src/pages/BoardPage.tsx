@@ -54,7 +54,7 @@ const BoardPage: React.FC = () => {
 							</div>
 
 							{/* Avatars */}
-							<div className='ion-hide-md-down' style={{display: "flex", alignItems: "center", gap: "16px"}}>
+							<div style={{display: "flex", alignItems: "center", gap: "16px"}}>
 								<AvatarGroup members={dummyMembers} max={4} size='md' />
 							</div>
 							<div
@@ -98,7 +98,6 @@ const BoardPage: React.FC = () => {
 							<FilterBar />
 
 							<div
-								className='ion-hide-md-down'
 								style={{
 									display: "flex",
 									alignItems: "center",
@@ -111,7 +110,7 @@ const BoardPage: React.FC = () => {
 								}}
 							>
 								<IonIcon icon={downloadOutline} />
-								<span style={{fontSize: "14px", fontWeight: "900"}}>Export / Import</span>
+								<span className='ion-hide-md-down' style={{fontSize: "14px", fontWeight: "900"}}>Export / Import</span>
 							</div>
 
 							<SearchBar />
