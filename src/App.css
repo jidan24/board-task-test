@@ -1,0 +1,64 @@
+#root {
+	width: 100%;
+	height: 100%;
+}
+
+@keyframes popIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.task-card-animate {
+	animation: popIn 0.3s ease-out forwards;
+}
+
+.task-card-hover {
+	transition:
+		box-shadow 0.2s ease,
+		opacity 0.2s ease;
+}
+
+.task-card-hover:hover {
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12) !important;
+}
+
+.custom-toast {
+	--border-radius: 8px;
+	font-weight: 500;
+}
+
+.responsive-modal {
+	--width: 900px;
+	--height: 90vh;
+	--border-radius: 16px;
+}
+
+@media (max-width: 768px) {
+	.responsive-modal {
+		--width: 100%;
+		--height: 100%;
+		--border-radius: 0;
+	}
+	.search-bar-responsive {
+		width: 120px !important;
+	}
+}
+
+.custom-searchbar {
+	--min-height: 28px !important;
+	--padding-top: 0 !important;
+	--padding-bottom: 0 !important;
+	--box-shadow: none !important;
+	height: 28px !important;
+	min-height: 28px !important;
+	font-size: 13px;
+}
+
+/* Make IonProgressBar smooth */
+ion-progress-bar::part(progress) {
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
