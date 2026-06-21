@@ -64,7 +64,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({task, index, onTaskOpen}) => 
 							boxShadow: snapshot.isDragging ? "0 8px 16px rgba(0,0,0,0.12)" : "0 2px 8px rgba(0,0,0,0.06)",
 							position: "relative",
 							overflow: "hidden",
-							backgroundColor: "var(--ion-background-color, #ffffff)",
+							backgroundColor: "var(--ion-background-color, #ffffffff)",
 							display: "flex",
 							flexDirection: "column",
 							cursor: "grab",
