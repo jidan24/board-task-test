@@ -147,25 +147,21 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({isOpen, taskId,
 				const centerY = window.innerHeight / 2;
 				const cardCenterX = rect.left + rect.width / 2;
 				const cardCenterY = rect.top + rect.height / 2;
-				
+
 				const translateX = cardCenterX - centerX;
 				const translateY = cardCenterY - centerY;
-				
+
 				transformFrom = `translate(${translateX}px, ${translateY}px) scale(0.2)`;
 				opacityFrom = "0";
 			}
 		}
 
 		wrapperAnimation.keyframes([
-			{ offset: 0, opacity: opacityFrom, transform: transformFrom },
-			{ offset: 1, opacity: "1", transform: "translate(0, 0) scale(1)" },
+			{offset: 0, opacity: opacityFrom, transform: transformFrom},
+			{offset: 1, opacity: "1", transform: "translate(0, 0) scale(1)"},
 		]);
 
-		return createAnimation()
-			.addElement(baseEl)
-			.easing("cubic-bezier(0.32,0.72,0,1)")
-			.duration(300)
-			.addAnimation([backdropAnimation, wrapperAnimation]);
+		return createAnimation().addElement(baseEl).easing("cubic-bezier(0.32,0.72,0,1)").duration(300).addAnimation([backdropAnimation, wrapperAnimation]);
 	};
 
 	const leaveAnimation = (baseEl: HTMLElement) => {
@@ -173,13 +169,7 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({isOpen, taskId,
 	};
 
 	return (
-		<IonModal 
-			isOpen={isOpen} 
-			onDidDismiss={handleClose} 
-			className='responsive-modal'
-			enterAnimation={enterAnimation}
-			leaveAnimation={leaveAnimation}
-		>
+		<IonModal isOpen={isOpen} onDidDismiss={handleClose} className='responsive-modal' enterAnimation={enterAnimation} leaveAnimation={leaveAnimation}>
 			<IonContent>
 				<div style={{padding: "24px 32px"}}>
 					{/* Top Actions */}
@@ -298,7 +288,7 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({isOpen, taskId,
 													alignItems: "center",
 												}}
 											>
-												<span>Adhivasindo</span>
+												<span>willBoard</span>
 												<IonIcon icon={chevronDownOutline} style={{color: "var(--ion-color-medium)"}} />
 											</div>
 										</IonCol>
@@ -389,9 +379,9 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({isOpen, taskId,
 												fontFamily: "inherit",
 												fontSize: "14px",
 												textAlign: "left",
-												lineHeight: "1.5"
+												lineHeight: "1.5",
 											}}
-											placeholder="Add a more detailed description..."
+											placeholder='Add a more detailed description...'
 										/>
 									</div>
 								</div>

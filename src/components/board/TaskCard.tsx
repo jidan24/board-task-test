@@ -1,6 +1,6 @@
 import React from "react";
 import {IonCard, IonIcon, IonProgressBar, IonText} from "@ionic/react";
-import {calendarOutline, attachOutline, checkboxOutline} from "ionicons/icons";
+import {checkboxOutline, linkSharp, timerOutline} from "ionicons/icons";
 import {format} from "date-fns";
 import type {Task, Label, Member} from "../../types";
 import {useBoardStore} from "../../store/boardStore";
@@ -154,8 +154,8 @@ export const TaskCard: React.FC<TaskCardProps> = ({task, index, onTaskOpen}) => 
 									}}
 								>
 									{task.dueDate && (
-										<div style={{display: "flex", alignItems: "center", gap: "4px", color: "var(--ion-color-tertiary, #5260ff)"}}>
-											<IonIcon icon={calendarOutline} style={{fontSize: "14px"}} />
+										<div style={{display: "flex", alignItems: "center", gap: "4px", color: "var(--ion-color-primary, #2797ffff)", backgroundColor: "rgba(55, 161, 255, 0.1)", padding: "2px 4px", borderRadius: "12px"}}>
+											<IonIcon icon={timerOutline} style={{fontSize: "14px"}} />
 											<span>{format(new Date(task.dueDate), "d MMM")}</span>
 										</div>
 									)}
@@ -171,7 +171,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({task, index, onTaskOpen}) => 
 
 									{task.attachments.length > 0 && (
 										<div style={{display: "flex", alignItems: "center", gap: "4px"}}>
-											<IonIcon icon={attachOutline} style={{fontSize: "14px"}} />
+											<IonIcon icon={linkSharp} style={{fontSize: "14px"}} />
 											<span>{task.attachments.length}</span>
 										</div>
 									)}

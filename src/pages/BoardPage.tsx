@@ -43,13 +43,13 @@ const BoardPage: React.FC = () => {
 		<IonPage>
 			<IonHeader className='ion-no-border'>
 				<IonToolbar style={{"--background": "var(--ion-background-color, #ffffff)", "--border-width": "0 0 1px 0", "--border-color": "rgba(128, 128, 128, 0.2)", minHeight: "64px", padding: "8px 0"}}>
-					<div className="board-header-container">
+					<div className='board-header-container'>
 						{/* Left Section */}
-						<div className="board-header-left">
+						<div className='board-header-left'>
 							{/* Title Dropdown */}
 							<div style={{display: "flex", alignItems: "center", gap: "8px", cursor: "pointer"}}>
 								<IonIcon icon={lockClosedOutline} style={{color: "var(--ion-color-medium)", fontSize: "18px"}} />
-								<span style={{fontSize: "18px", fontWeight: "bold", color: "var(--ion-text-color)"}}>Adhivasindo</span>
+								<span style={{fontSize: "18px", fontWeight: "bold", color: "var(--ion-text-color)"}}>willBoard</span>
 								<IonIcon icon={chevronDownOutline} style={{color: "var(--ion-color-medium)"}} />
 							</div>
 
@@ -78,7 +78,7 @@ const BoardPage: React.FC = () => {
 						</div>
 
 						{/* Right Section */}
-						<div className="board-header-right">
+						<div className='board-header-right'>
 							<div
 								onClick={toggleThemeMode}
 								style={{
@@ -110,7 +110,9 @@ const BoardPage: React.FC = () => {
 								}}
 							>
 								<IonIcon icon={downloadOutline} />
-								<span className='ion-hide-md-down' style={{fontSize: "14px", fontWeight: "900"}}>Export / Import</span>
+								<span className='ion-hide-md-down' style={{fontSize: "14px", fontWeight: "900"}}>
+									Export / Import
+								</span>
 							</div>
 
 							<SearchBar />
