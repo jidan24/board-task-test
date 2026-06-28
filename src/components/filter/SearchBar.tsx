@@ -1,17 +1,16 @@
 import React, {useState, useEffect} from "react";
 import {IonIcon} from "@ionic/react";
 import {searchOutline} from "ionicons/icons";
-import {useBoardStore} from "../../store/boardStore";
+import {useBoardFilters} from "../../hooks/useBoardFilters";
 
 export const SearchBar: React.FC = () => {
-	const storeSearchQuery = useBoardStore((state) => state.searchQuery);
-	const setSearchQuery = useBoardStore((state) => state.setSearchQuery);
+	const {searchQuery, setSearchQuery} = useBoardFilters();
 
-	const [localQuery, setLocalQuery] = useState(storeSearchQuery);
+	const [localQuery, setLocalQuery] = useState(searchQuery || "");
 
 	useEffect(() => {
 		const handler = setTimeout(() => {
-			setSearchQuery(localQuery);
+			setSearchQuery(localQuery || null);
 		}, 300); // 300ms debounce
 		return () => clearTimeout(handler);
 	}, [localQuery, setSearchQuery]);

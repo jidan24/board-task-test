@@ -7,6 +7,8 @@ import {TaskCard} from "./TaskCard";
 import {EmptyState} from "../common/EmptyState";
 import type {Column} from "../../types";
 
+import {useFilteredTasks} from "../../hooks/useFilteredTasks";
+
 interface BoardColumnProps {
 	column: Column;
 	index: number;
@@ -16,7 +18,7 @@ interface BoardColumnProps {
 
 export const BoardColumn: React.FC<BoardColumnProps> = ({column, index, onTaskCreate, onTaskOpen}) => {
 	const store = useBoardStore();
-	const taskIds = store.getFilteredTaskIdsForColumn(column.id);
+	const taskIds = useFilteredTasks(column.id);
 	const tasks = store.tasks;
 
 	const [showPopover, setShowPopover] = useState(false);

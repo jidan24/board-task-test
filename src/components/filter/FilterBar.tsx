@@ -11,6 +11,7 @@ import {
 } from '@ionic/react';
 import { filterOutline, checkmarkOutline } from 'ionicons/icons';
 import { useBoardStore } from '../../store/boardStore';
+import { useBoardFilters } from '../../hooks/useBoardFilters';
 import type { Label } from '../../types';
 import { Avatar } from '../common/Avatar';
 import { LabelBadge } from '../task/LabelBadge';
@@ -19,35 +20,38 @@ const LABELS: Label[] = ['Feature', 'Bug', 'Issue', 'Undefined'];
 
 export const FilterBar: React.FC = () => {
   const store = useBoardStore();
+  const filters = useBoardFilters();
   const [showPopover, setShowPopover] = useState(false);
   const [popoverEvent, setPopoverEvent] = useState<Event | null>(null);
 
   const toggleAssignee = (id: string) => {
-    const current = store.filterAssigneeIds;
+    const current = filters.filterAssigneeIds;
     if (current.includes(id)) {
-      store.setFilterAssigneeIds(current.filter(x => x !== id));
+      filters.setFilterAssigneeIds(current.filter(x => x !== id).length > 0 ? current.filter(x => x !== id) : null);
     } else {
-      store.setFilterAssigneeIds([...current, id]);
+      filters.setFilterAssigneeIds([...current, id]);
     }
   };
 
   const toggleLabel = (label: Label) => {
-    const current = store.filterLabels;
+    const current = filters.filterLabels;
     if (current.includes(label)) {
-      store.setFilterLabels(current.filter(x => x !== label));
+      filters.setFilterLabels(current.filter(x => x !== label).length > 0 ? current.filter(x => x !== label) : null);
     } else {
-      store.setFilterLabels([...current, label]);
+      filters.setFilterLabels([...current, label]);
     }
   };
 
   const setDateFrom = (date: string | null) => {
-    store.setFilterDueDateRange({ ...store.filterDueDateRange, from: date });
+    const newRange = { ...filters.filterDueDateRange, from: date };
+    filters.setFilterDueDateRange((newRange.from || newRange.to) ? newRange : null);
   };
   const setDateTo = (date: string | null) => {
-    store.setFilterDueDateRange({ ...store.filterDueDateRange, to: date });
+    const newRange = { ...filters.filterDueDateRange, to: date };
+    filters.setFilterDueDateRange((newRange.from || newRange.to) ? newRange : null);
   };
 
-  const activeFilterCount = store.filterAssigneeIds.length + store.filterLabels.length + (store.filterDueDateRange.from ? 1 : 0) + (store.filterDueDateRange.to ? 1 : 0);
+  const activeFilterCount = filters.filterAssigneeIds.length + filters.filterLabels.length + (filters.filterDueDateRange.from ? 1 : 0) + (filters.filterDueDateRange.to ? 1 : 0);
 
   return (
     <>
@@ -79,7 +83,7 @@ export const FilterBar: React.FC = () => {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
             <h3 style={{ margin: 0, fontSize: '18px', fontWeight: 'bold' }}>Filters</h3>
             {activeFilterCount > 0 && (
-              <IonButton fill="clear" color="primary" size="small" onClick={() => store.clearFilters()} style={{ textTransform: 'none', margin: 0 }}>
+              <IonButton fill="clear" color="primary" size="small" onClick={() => filters.clearFilters()} style={{ textTransform: 'none', margin: 0 }}>
                 Reset
               </IonButton>
             )}
@@ -93,13 +97,13 @@ export const FilterBar: React.FC = () => {
                 <div 
                   key={member.id} 
                   onClick={() => toggleAssignee(member.id)}
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', borderRadius: '8px', cursor: 'pointer', backgroundColor: store.filterAssigneeIds.includes(member.id) ? 'rgba(56, 128, 255, 0.1)' : 'transparent', transition: 'background-color 0.2s' }}
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '8px 12px', borderRadius: '8px', cursor: 'pointer', backgroundColor: filters.filterAssigneeIds.includes(member.id) ? 'rgba(56, 128, 255, 0.1)' : 'transparent', transition: 'background-color 0.2s' }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                     <Avatar member={member} size="sm" />
-                    <span style={{ fontSize: '14px', fontWeight: '500', color: store.filterAssigneeIds.includes(member.id) ? 'var(--ion-color-primary)' : 'var(--ion-text-color)' }}>{member.name}</span>
+                    <span style={{ fontSize: '14px', fontWeight: '500', color: filters.filterAssigneeIds.includes(member.id) ? 'var(--ion-color-primary)' : 'var(--ion-text-color)' }}>{member.name}</span>
                   </div>
-                  <IonCheckbox checked={store.filterAssigneeIds.includes(member.id)} onIonChange={(e) => { e.preventDefault(); /* handled by parent click */ }} />
+                  <IonCheckbox checked={filters.filterAssigneeIds.includes(member.id)} onIonChange={(e) => { e.preventDefault(); /* handled by parent click */ }} />
                 </div>
               ))}
             </div>
@@ -110,7 +114,7 @@ export const FilterBar: React.FC = () => {
             <h4 style={{ fontSize: '14px', fontWeight: '600', color: 'var(--ion-color-medium)', margin: '0 0 12px 0', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Labels</h4>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
               {LABELS.map(label => {
-                const isActive = store.filterLabels.includes(label);
+                const isActive = filters.filterLabels.includes(label);
                 return (
                   <div 
                     key={label} 
@@ -141,7 +145,7 @@ export const FilterBar: React.FC = () => {
                   <IonDatetime 
                     id="datetime-from" 
                     presentation="date"
-                    value={store.filterDueDateRange.from || undefined}
+                    value={filters.filterDueDateRange.from || undefined}
                     onIonChange={e => setDateFrom(e.detail.value as string)}
                     showClearButton={true}
                   />
@@ -154,7 +158,7 @@ export const FilterBar: React.FC = () => {
                   <IonDatetime 
                     id="datetime-to" 
                     presentation="date"
-                    value={store.filterDueDateRange.to || undefined}
+                    value={filters.filterDueDateRange.to || undefined}
                     onIonChange={e => setDateTo(e.detail.value as string)}
                     showClearButton={true}
                   />

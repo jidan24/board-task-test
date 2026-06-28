@@ -30,8 +30,12 @@ import './theme/variables.css';
 
 setupIonicReact();
 
+import { NuqsAdapter } from 'nuqs/adapters/react';
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <NuqsAdapter>
+      <App />
+    </NuqsAdapter>
   </StrictMode>
 );
